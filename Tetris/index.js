@@ -3,7 +3,7 @@ const canvas = document.getElementById("tetris");
 const context = canvas.getContext("2d");
 context.scale(20, 20);
 
-//bug na quando completa uma linha!!
+//quando completar uma linha, essa função limpa a linha
 function arenaSweep(){
 
     let rowCount = 3;
@@ -13,13 +13,11 @@ function arenaSweep(){
                 continue outer;
             }
         }
-
         const row = arena.splice(y, 1)[0].fill(0);
         arena.unshift(row);
         ++y;
         player.score += rowCount * 10;
         rowCount *= 2;
-
     }
 }
 
