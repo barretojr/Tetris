@@ -3,6 +3,7 @@ const canvas = document.getElementById("tetris");
 const context = canvas.getContext("2d");
 context.scale(20, 20);
 
+//bug na quando completa uma linha!!
 function arenaSweep(){
 
     let rowCount = 3;
@@ -22,6 +23,7 @@ function arenaSweep(){
     }
 }
 
+//colisão de: peça com peça, peça com borda
 function collide(arena, player){
 
     const m = player.matrix;
@@ -38,6 +40,7 @@ function collide(arena, player){
 
 }
 
+//Borda
 function createMatrix(w, h){
 
     const matrix = [];
@@ -47,6 +50,7 @@ function createMatrix(w, h){
     return matrix;
 }
 
+//peças
 function createPiece(type){
 
     if(type === "I"){
@@ -94,7 +98,7 @@ function createPiece(type){
     }
     
 }
-
+//desenho da borda
 function drawMatrix(matrix, offset){
 
     matrix.forEach((row, y) => {
@@ -115,6 +119,7 @@ function draw(){
     drawMatrix(player.matrix , player.pos);
 }
 
+
 function merge(arena, player){
     player.matrix.forEach((row, y) => {
         row.forEach((value, x) =>{
@@ -125,6 +130,7 @@ function merge(arena, player){
     });
 }
 
+//rotação de peça
 function rotate(matrix, dir){
     for(let y = 0; y < matrix.length; ++y){
         for(let x = 0; x < y; ++x){
@@ -138,6 +144,7 @@ function rotate(matrix, dir){
     }
 }
 
+//função de descer a peça 
 function playerDrop(){
 
     player.pos.y++;
@@ -151,12 +158,16 @@ function playerDrop(){
     dropCounter = 0;
 }
 
+
+//movimentação da peça
 function playerMove(offset){
     player.pos.x += offset;
     if(collide(arena, player)){
         player.pos.x -= offset;
     }
 }
+
+
 
 function playerReset(){
 
@@ -170,7 +181,7 @@ function playerReset(){
         updateScore();
     }
 }
-
+//rotação da peça ao apertar botão
 function playerRotate(dir){
 
     const pos = player.pos.x;
@@ -186,7 +197,7 @@ function playerRotate(dir){
         }
     }
 }
-
+//variaveis
 let dropCounter = 0;
 let dropInterval = 1000;
 let lastTime = 0;
@@ -207,6 +218,7 @@ function updateScore(){
     document.getElementById("score").innerText = "Score : " + player.score;
 }
 
+//teclas de jogo
 document.addEventListener("keydown",(event) =>{
     
     if(event.keyCode === 37){
@@ -221,7 +233,7 @@ document.addEventListener("keydown",(event) =>{
         playerRotate(1);
     }
 });
-
+//cores das peças dos jogos
 const colors = [
     null,
     "#ff0d72",
@@ -233,6 +245,7 @@ const colors = [
     "#3877ff",
 ];
 
+//variaveis
 const arena = createMatrix(12, 20);
 const player ={
     pos: {x: 0, y: 0},
