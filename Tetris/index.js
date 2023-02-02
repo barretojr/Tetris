@@ -15,7 +15,7 @@ function arenaSweep(){
         }
 
         const row = arena.splice(y, 1)[0].fill(0);
-        arena.unshifit(row);
+        arena.unshift(row);
         ++y;
         player.score += rowCount * 10;
         rowCount *= 2;
